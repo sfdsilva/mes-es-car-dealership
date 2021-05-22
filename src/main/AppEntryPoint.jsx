@@ -3,11 +3,11 @@ import CarPurchase from '../pages/CarPurchase';
 import CarStatus from '../pages/CarStatus';
 import CarList from '../pages/CarList';
 
-const AppEntryPoint = () => {
+const AppEntryPoint = (props) => {
   return (
     <Router>
       <Switch>
-        <Route exact path={['/list', '/']}>
+        <Route exact path={['/list', '/']} filters={props}>
           <CarList />
         </Route>
         <Route exact path="/purchase">
