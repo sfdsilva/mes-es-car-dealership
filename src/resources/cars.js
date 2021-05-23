@@ -6,7 +6,7 @@ export default [
     color: 'black',
     year: '2018',
     price: '20000',
-    img:'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2021-aston-martin-vantage-roadster-133-1601650044.jpg'
+    img: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2021-aston-martin-vantage-roadster-133-1601650044.jpg',
   },
   {
     id: '2',
@@ -15,7 +15,7 @@ export default [
     color: 'white',
     year: '2018',
     price: '20000',
-    img:'https://www.tuningblog.eu/wp-content/uploads/2019/10/Aston-Martin-DBS-Superleggera-22-Zoll-Tuning-Wheelsandmore-12-1.jpg'
+    img: 'https://www.tuningblog.eu/wp-content/uploads/2019/10/Aston-Martin-DBS-Superleggera-22-Zoll-Tuning-Wheelsandmore-12-1.jpg',
   },
   {
     id: '3',
@@ -24,7 +24,7 @@ export default [
     color: 'white',
     year: '2017',
     price: '20000',
-    img:'https://www.veerabimanyu.com/wp-content/uploads/2021/02/audi-q2-2020.jpg'
+    img: 'https://www.veerabimanyu.com/wp-content/uploads/2021/02/audi-q2-2020.jpg',
   },
   {
     id: '4',
@@ -33,7 +33,7 @@ export default [
     color: 'blue',
     year: '2021',
     price: '20000',
-    img:''
+    img: '',
   },
   {
     id: '5',
@@ -42,7 +42,7 @@ export default [
     color: 'black',
     year: '2020',
     price: '20000',
-    img:'https://topgear.com.sg/sites/default/files/article-image/1_p90390188-highres.jpg'
+    img: 'https://topgear.com.sg/sites/default/files/article-image/1_p90390188-highres.jpg',
   },
   {
     id: '6',
@@ -51,7 +51,7 @@ export default [
     color: 'green',
     year: '2020',
     price: '20000',
-    img:'https://i.ytimg.com/vi/TGUbRYnakBk/maxresdefault.jpg'
+    img: 'https://i.ytimg.com/vi/TGUbRYnakBk/maxresdefault.jpg',
   },
   {
     id: '7',
@@ -60,7 +60,7 @@ export default [
     color: 'black',
     year: '2017',
     price: '20000',
-    img:''
+    img: '',
   },
   {
     id: '8',
@@ -69,7 +69,7 @@ export default [
     color: 'black',
     year: '2020',
     price: '20000',
-    img:''
+    img: '',
   },
   {
     id: '9',
@@ -78,7 +78,7 @@ export default [
     color: 'gray',
     year: '2020',
     price: '20000',
-    img:''
+    img: '',
   },
   {
     id: '10',
@@ -87,7 +87,7 @@ export default [
     color: 'red',
     year: '2019',
     price: '20000',
-    img:''
+    img: '',
   },
   {
     id: '11',
@@ -96,7 +96,7 @@ export default [
     color: 'bronze',
     year: '2020',
     price: '20000',
-    img:''
+    img: '',
   },
   {
     id: '12',
@@ -105,7 +105,7 @@ export default [
     color: 'white',
     year: '2020',
     price: '20000',
-    img:'https://s.blogcdn.com/slideshows/images/slides/713/956/4/S7139564/slug/l/01-2018-lexus-lc-500-inspiration-series-sema-1.jpg'
+    img: 'https://s.blogcdn.com/slideshows/images/slides/713/956/4/S7139564/slug/l/01-2018-lexus-lc-500-inspiration-series-sema-1.jpg',
   },
   {
     id: '13',
@@ -114,7 +114,7 @@ export default [
     color: 'white',
     year: '2020',
     price: '20000',
-    img:''
+    img: '',
   },
   {
     id: '14',
@@ -123,7 +123,7 @@ export default [
     color: 'white',
     year: '2020',
     price: '20000',
-    img:''
+    img: '',
   },
 
   {
@@ -133,7 +133,7 @@ export default [
     color: 'red',
     year: '2017',
     price: '20000',
-    img:''
+    img: '',
   },
   {
     id: '16',
@@ -142,7 +142,7 @@ export default [
     color: 'blue',
     year: '2021',
     price: '20000',
-    img:''
+    img: '',
   },
   {
     id: '17',
@@ -151,7 +151,7 @@ export default [
     color: 'white',
     year: '2021',
     price: '20000',
-    img:''
+    img: '',
   },
   {
     id: '18',
@@ -160,7 +160,7 @@ export default [
     color: 'blue',
     year: '2020',
     price: '20000',
-    img:''
+    img: '',
   },
   {
     id: '19',
@@ -169,7 +169,7 @@ export default [
     color: 'blue',
     year: '2020',
     price: '20000',
-    img:''
+    img: '',
   },
   {
     id: '20',
@@ -178,7 +178,7 @@ export default [
     color: 'blue',
     year: '2020',
     price: '20000',
-    img:''
+    img: '',
   },
   {
     id: '21',
@@ -187,7 +187,7 @@ export default [
     color: 'white',
     year: '2010',
     price: '20000',
-    img:''
+    img: '',
   },
   {
     id: '22',
@@ -196,7 +196,7 @@ export default [
     color: 'white',
     year: '2020',
     price: '20000',
-    img:''
+    img: '',
   },
   {
     id: '23',
@@ -205,7 +205,7 @@ export default [
     color: 'white',
     year: '2020',
     price: '20000',
-    img:''
+    img: '',
   },
   {
     id: '24',
@@ -214,7 +214,6 @@ export default [
     color: 'grey',
     year: '2018',
     price: '10000',
-    img:''
+    img: '',
   },
-
 ];
