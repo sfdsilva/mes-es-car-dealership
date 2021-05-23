@@ -9,7 +9,7 @@ import {connect} from 'react-redux'
 
 
 
-
+const fakeIMG = "https://i.pinimg.com/originals/23/bf/c6/23bfc60e70a75dce0d340ef16076e717.png"
   class CarItem extends Component{
     constructor(props){
       super(props)
@@ -22,10 +22,15 @@ import {connect} from 'react-redux'
       return(
             (<Row gutter={24}style={{margin:"1em"}}>
               <Col span={24} >
-              <Card title={this.props.car.model} style={{borderRadius:"0.5em"}} >
+              <Card title={`${this.props.car.brand} : ${this.props.car.model} (${this.props.car.year})`}style={{borderRadius:"0.5em"}} >
                 <Row style={{marginBottom:"0.5em"}}>
                   <Col span={6} style={{marginRight:"1em", minHeight:"200px", minWidth:"320px"}}>
-                    <div style={{backgroundColor:"pink",height:"100%",borderRadius:"0.5em"}}></div>
+                    <div style={{height:"100%",borderRadius:"0.5em"}}>
+                    <img
+                        alt={`${this.props.car.brand} ${this.props.car.model} ${this.props.car.year}`}
+                        style={{width:"320px", height:"200px", borderRadius:"0.5em", position:"absolute", float:"left"}}
+                        src={this.props.car.img ? this.props.car.img : fakeIMG}  />
+                    </div>
                   </Col>
                   <Col>
                       <Row gutter={18}>
