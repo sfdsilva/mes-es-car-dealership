@@ -1,0 +1,23 @@
+.carWrapper.carWrapper {
+  margin-bottom: 2rem;
+  margin-right: 2rem;
+  width: 40%;
+}
+
+.carContent {
+  display: flex;
+  width: 100%;
+}
+
+.carInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.carDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 1rem;
+  width: 50%;
+}

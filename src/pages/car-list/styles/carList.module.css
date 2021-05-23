@@ -1,0 +1,4 @@
+.carListWrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
