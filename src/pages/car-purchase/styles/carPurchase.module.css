@@ -1,0 +1,16 @@
+.carInfo {
+  display: flex;
+}
+
+.carProperties {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+}
+
+.carItem {
+  display: flex;
+  align-items: baseline;
+  max-width: 10rem;
+  justify-content: space-between;
+}

@@ -1,4 +1,10 @@
 .carListWrapper {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.titleWrapper {
+  display: flex;
+  justify-content: space-between;
 }

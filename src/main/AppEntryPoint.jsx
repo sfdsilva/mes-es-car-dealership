@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import CarPurchase from '../pages/CarPurchase';
+import CarPurchase from '../pages/car-purchase/CarPurchase';
 import CarStatus from '../pages/CarStatus';
 import CarList from '../pages/car-list/CarList';
 import PageWrapper from '../components/page-wrapper/PageWrapper';

@@ -1,10 +1,8 @@
 import { Avatar, Button, Card, Typography } from 'antd';
+import fakeIMG from '../../resources/constants';
 import styles from './styles/carItem.module.css';
 
 const { Text } = Typography;
-
-const fakeIMG =
-  'https://aeroclub-issoire.fr/wp-content/uploads/2020/05/image-not-found.jpg';
 
 const CarItem = ({ car, onCarSelect }) => {
   const { brand, img, model, year, price } = car;
