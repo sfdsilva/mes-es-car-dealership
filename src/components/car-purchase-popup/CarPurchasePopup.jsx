@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Alert, Button, Image, Modal, Spin, Typography } from 'antd';
-import fakeIMG from '../../resources/constants';
+import qs from 'querystringify';
+import useFetch from '../../hooks/useFetch';
+import { api, fakeIMG, methods } from '../../resources/constants';
 
 import styles from './styles/carPurchasePopup.module.css';
-import useFetch from '../../hooks/useFetch';
 
 const { Title, Text } = Typography;
+
+const { GET } = methods;
 
 const getButtons = (carAvailability, onConfirm, onCancel) => {
   if (carAvailability === true) {
@@ -41,21 +44,21 @@ const getMessage = (isAvailable) => {
 };
 
 const CarPurchasePopup = ({ selectedCar, isVisible, onConfirm, onCancel }) => {
-  const [isAvailable, setIsAvailable] = useState();
-  const { response, loading, error, fetchRequest } = useFetch(
-    'https://thisTest.com',
-    'carAvailability'
-  );
+  const { response, loading, error, fetchRequest } = useFetch();
 
-  // TBC --> on mount effect check car availability
   useEffect(() => {
     if (selectedCar) {
-      fetchRequest('GET', { carId: selectedCar.id });
-      setIsAvailable(response);
+      const url =
+        api +
+        qs.stringify(
+          { color: selectedCar.color, model: selectedCar.model },
+          true
+        );
+      fetchRequest(GET, url);
     }
   }, [selectedCar]);
 
-  const isLoading = loading || isAvailable === undefined;
+  const isAvailable = response && response.length > 0;
 
   return (
     <Modal
@@ -64,13 +67,12 @@ const CarPurchasePopup = ({ selectedCar, isVisible, onConfirm, onCancel }) => {
       title={`Do you want to buy ${selectedCar?.model}?`}
       visible={isVisible}
       width={800}>
-      {isLoading && (
-        <Spin>
-          <Alert
-            message={getMessage(isAvailable)}
-            type={isAvailable === false ? 'error' : 'success'}
-          />
-        </Spin>
+      {loading && !error && <Spin />}
+      {!loading && !error && response && (
+        <Alert
+          message={getMessage(isAvailable)}
+          type={isAvailable === false ? 'error' : 'success'}
+        />
       )}
 
       {selectedCar && (

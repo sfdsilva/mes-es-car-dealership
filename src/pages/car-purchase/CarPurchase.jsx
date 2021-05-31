@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Avatar, Button, Card, Form, Input, Spin, Typography } from 'antd';
 import useFetch from '../../hooks/useFetch';
-import fakeIMG from '../../resources/constants';
+import { fakeIMG } from '../../resources/constants';
 import cars from '../../resources/cars.json';
 
 import styles from './styles/carPurchase.module.css';
@@ -14,19 +14,10 @@ const initialValues = {
   email: '',
 };
 
-const requestOptions = {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ title: 'React POST Request Example' }),
-};
-
 const CarPurchase = () => {
   const { id } = useParams();
   const [selectedCar, setSelectedCar] = useState();
-  const { response, loading, error, fetchRequest } = useFetch(
-    'https://thisTest.com',
-    'carPurchase'
-  );
+  const { fetchRequest } = useFetch();
 
   useEffect(() => {
     setSelectedCar(cars.find((car) => car.id === id));

@@ -1,11 +1,11 @@
 import { Avatar, Button, Card, Typography } from 'antd';
-import fakeIMG from '../../resources/constants';
+import { fakeIMG } from '../../resources/constants';
 import styles from './styles/carItem.module.css';
 
 const { Text } = Typography;
 
 const CarItem = ({ car, onCarSelect }) => {
-  const { brand, img, model, year, price } = car;
+  const { brand, img, model, color, year, price } = car;
 
   return (
     <>
@@ -16,6 +16,8 @@ const CarItem = ({ car, onCarSelect }) => {
             <div className={styles.carInfo}>
               <Text type="secondary">Model:</Text>
               <Text strong>{model}</Text>
+              <Text type="secondary">Color:</Text>
+              <Text strong>{color}</Text>
               <Text type="secondary">Price:</Text>
               <Text strong>{price}€</Text>
               <Text type="secondary">Year:</Text>
