@@ -1,3 +1,4 @@
-.layoutWrapper {
+.layoutWrapper.layoutWrapper {
   padding: 3rem;
+  min-height: 95vh;
 }

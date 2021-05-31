@@ -1,3 +1,10 @@
-.carInfo {
+.infoWrapper {
   display: flex;
+  margin-top: 2rem;
+}
+
+.specificInfoWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1.2rem;
 }

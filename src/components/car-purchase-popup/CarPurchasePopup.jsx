@@ -1,21 +1,20 @@
 import { useEffect, useState } from 'react';
-import { Alert, Button, Image, Modal, Typography } from 'antd';
+import { Alert, Button, Image, Modal, Spin, Typography } from 'antd';
+import fakeIMG from '../../resources/constants';
 
 import styles from './styles/carPurchasePopup.module.css';
+import useFetch from '../../hooks/useFetch';
 
 const { Title, Text } = Typography;
-
-const fakeIMG =
-  'https://aeroclub-issoire.fr/wp-content/uploads/2020/05/image-not-found.jpg';
 
 const getButtons = (carAvailability, onConfirm, onCancel) => {
   if (carAvailability === true) {
     return [
-      <Button key="continueBuy" onClick={onConfirm}>
-        Continue Purchase
-      </Button>,
       <Button key="cancel" onClick={onCancel}>
         Cancel
+      </Button>,
+      <Button key="continueBuy" type="primary" onClick={onConfirm}>
+        Continue Purchase
       </Button>,
     ];
   }
@@ -31,29 +30,59 @@ const getButtons = (carAvailability, onConfirm, onCancel) => {
   return null;
 };
 
+const getMessage = (isAvailable) => {
+  if (isAvailable) {
+    return 'Your car is available!';
+  }
+  if (isAvailable === false) {
+    return 'Sorry... it seems this car is not available.';
+  }
+  return 'Looking for this car availability';
+};
+
 const CarPurchasePopup = ({ selectedCar, isVisible, onConfirm, onCancel }) => {
-  // const { img, model, price, color } = selectedCar;
-  const [isAvailable, setIsAvailable] = useState(true);
+  const [isAvailable, setIsAvailable] = useState();
+  const { response, loading, error, fetchRequest } = useFetch(
+    'https://thisTest.com',
+    'carAvailability'
+  );
 
   // TBC --> on mount effect check car availability
-  // useEffect(() => {}, []);
+  useEffect(() => {
+    if (selectedCar) {
+      fetchRequest('GET', { carId: selectedCar.id });
+      setIsAvailable(response);
+    }
+  }, [selectedCar]);
 
-  const message = isAvailable
-    ? 'Your car is available! Continue with the purchase...'
-    : 'Sorry... it seems this car is not available.';
+  const isLoading = loading || isAvailable === undefined;
 
   return (
     <Modal
+      centered
       footer={getButtons(isAvailable, onConfirm, onCancel)}
       title={`Do you want to buy ${selectedCar?.model}?`}
-      visible={isVisible}>
-      <Alert message={message} type={isAvailable ? 'success' : 'error'} />
-      <div className={styles.carInfo}>
-        <Image src={selectedCar?.img || fakeIMG} width={200} />
-        <Title level={2}>{selectedCar?.model}</Title>
-        <Text>{selectedCar?.price}</Text>
-        <Text>{selectedCar?.color}</Text>
-      </div>
+      visible={isVisible}
+      width={800}>
+      {isLoading && (
+        <Spin>
+          <Alert
+            message={getMessage(isAvailable)}
+            type={isAvailable === false ? 'error' : 'success'}
+          />
+        </Spin>
+      )}
+
+      {selectedCar && (
+        <div className={styles.infoWrapper}>
+          <Image src={selectedCar.img || fakeIMG} width={200} />
+          <div className={styles.specificInfoWrapper}>
+            <Title level={2}>{selectedCar.model}</Title>
+            <Text>{selectedCar.price}</Text>
+            <Text>{selectedCar.color}</Text>
+          </div>
+        </div>
+      )}
     </Modal>
   );
 };
