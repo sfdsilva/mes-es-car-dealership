@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Avatar, Button, Card, Form, Input, Spin, Typography } from 'antd';
+import { useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import { send } from 'emailjs-com';
+import qs from 'querystringify';
+import { Button, Card, Form, Input, Spin, Typography } from 'antd';
 import useFetch from '../../hooks/useFetch';
-import { fakeIMG } from '../../resources/constants';
-import cars from '../../resources/cars.json';
-
-import styles from './styles/carPurchase.module.css';
+import { api, methods } from '../../resources/constants';
+import CarInformation from '../../components/car-information/CarInformation';
 
 const { Title, Text } = Typography;
 
@@ -14,20 +14,60 @@ const initialValues = {
   email: '',
 };
 
+const { GET } = methods;
+
 const CarPurchase = () => {
   const { id } = useParams();
-  const [selectedCar, setSelectedCar] = useState();
-  const { fetchRequest } = useFetch();
+  const history = useHistory();
+  const {
+    response: carInfoResponse,
+    loading: carInfoLoading,
+    error: carInfoError,
+    fetchRequest: fetchCarInfo,
+  } = useFetch();
+
+  const { fetchRequest: createOrder } = useFetch();
 
   useEffect(() => {
-    setSelectedCar(cars.find((car) => car.id === id));
+    const url = `${api.CAR}/${id}`;
+    fetchCarInfo(GET, url);
   }, []);
 
   const purchaseCar = (values) => {
-    fetchRequest('POST', { ...values, carId: selectedCar.id });
+    localStorage.setItem('email', values.email);
+
+    if (carInfoResponse && carInfoResponse[0].state === 'available') {
+      const message = `Model: ${carInfoResponse[0].model} and color: ${carInfoResponse[0].color}`;
+      const url =
+        api.ORDER +
+        qs.stringify(
+          {
+            email: values.email,
+            carId: carInfoResponse[0].id,
+            brand: carInfoResponse[0].brand,
+          },
+          true
+        );
+
+      // TODO: check catch
+      createOrder('POST', url).then(() =>
+        send(
+          'service_1dwyx5y',
+          'template_st319sn',
+          {
+            from_name: 'Car Dealership',
+            to_email: values.email,
+            to_name: values.name,
+            message,
+            reply_to: 'carDealershipEs2021@gmail.com',
+          },
+          'user_vOw8IWRWZSBTvBjP3rT1f'
+        ).then(() => history.push(`/status/${carInfoResponse[0].id}`))
+      );
+    }
   };
 
-  if (!selectedCar) {
+  if (carInfoLoading) {
     return <Spin />;
   }
 
@@ -35,22 +75,9 @@ const CarPurchase = () => {
     <>
       <Title>Finish your purchase</Title>
       <Title level={2}>Car information</Title>
-      <Card>
-        <div className={styles.carInfo}>
-          <Avatar shape="square" size={250} src={selectedCar.img || fakeIMG} />
-          <div className={styles.carProperties}>
-            <Title level={3}>{selectedCar.model}</Title>
-            <div className={styles.carItem}>
-              <Text>Price</Text>
-              <Title level={4}>{`${selectedCar.price}€`}</Title>
-            </div>
-            <div className={styles.carItem}>
-              <Text>Color</Text>
-              <Title level={4}>{selectedCar.color}</Title>
-            </div>
-          </div>
-        </div>
-      </Card>
+      {!carInfoError && carInfoResponse && (
+        <CarInformation car={carInfoResponse[0]} />
+      )}
       <Title level={2}>Personal information</Title>
       <Card>
         <Form

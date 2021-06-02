@@ -1,54 +1,57 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, Empty, Popover, Typography } from 'antd';
+import { Button, Empty, Popover, Result, Typography, Spin } from 'antd';
+import qs from 'querystringify';
 import CarItem from '../../components/car-item/CarItem';
 import Filters from '../../components/filters/Filters';
-import cars from '../../resources/cars.json';
+import useFetch from '../../hooks/useFetch';
 import CarPurchasePopup from '../../components/car-purchase-popup/CarPurchasePopup';
+import { api, methods } from '../../resources/constants';
 
 import styles from './styles/carList.module.css';
 
 const { Title } = Typography;
 
+const { GET } = methods;
+
 const defaultFilters = {
   brand: undefined,
-  model: undefined,
   color: undefined,
-  year: undefined,
-  price: undefined,
 };
 
 const CarListPage = () => {
   const history = useHistory();
   const [filters, setFilters] = useState(defaultFilters);
-  const [carsList, setCarsList] = useState(cars);
+  const { response, loading, error, fetchRequest } = useFetch();
+  // const [carsList, setCarsList] = useState(cars);
   const [filtersPopup, setFiltersPopup] = useState(false);
   const [selectedCar, setSelectedCar] = useState(null);
 
+  const fetchCars = () => {
+    const url = `${api.CAR}/${qs.stringify(filters, true)}`;
+    fetchRequest(GET, url);
+  };
+
   // FOR FILTERS
   useEffect(() => {
-    let currentCars = cars;
-    let i;
-    const filtersKeys = Object.keys(filters);
-
-    // eslint-disable-next-line no-plusplus
-    for (i = 0; i < filtersKeys.length - 1; i++) {
-      const currentKey = filtersKeys[i]; // brand
-
-      if (filters[currentKey]) {
-        currentCars = currentCars.filter(
-          (car) => car[currentKey] === filters[currentKey]
-        );
-      }
-    }
-
-    setCarsList(currentCars);
+    fetchCars();
   }, [filters]);
 
   const onApplyFilters = (newFilters) => {
     setFilters(newFilters);
     setFiltersPopup(false);
   };
+
+  if (error) {
+    return (
+      <Result
+        extra={[<Button onClick={fetchCars}>Try again</Button>]}
+        status="error"
+        subTitle="Something went wrong. Try submiting the same request."
+        title="Request failed"
+      />
+    );
+  }
 
   return (
     <>
@@ -67,14 +70,15 @@ const CarListPage = () => {
           </Button>
         </Popover>
       </div>
-      {carsList.length > 0 && (
+      {loading && <Spin />}
+      {!loading && response && response.length > 0 && (
         <div className={styles.carListWrapper}>
-          {carsList.map((car) => (
+          {response.map((car) => (
             <CarItem key={car.id} car={car} onCarSelect={setSelectedCar} />
           ))}
         </div>
       )}
-      {carsList.length === 0 && <Empty />}
+      {!loading && response.length === 0 && <Empty />}
       <CarPurchasePopup
         isVisible={!!selectedCar}
         selectedCar={selectedCar}

@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { Alert, Button, Image, Modal, Spin, Typography } from 'antd';
-import qs from 'querystringify';
 import useFetch from '../../hooks/useFetch';
 import { api, fakeIMG, methods } from '../../resources/constants';
 
@@ -48,17 +47,12 @@ const CarPurchasePopup = ({ selectedCar, isVisible, onConfirm, onCancel }) => {
 
   useEffect(() => {
     if (selectedCar) {
-      const url =
-        api +
-        qs.stringify(
-          { color: selectedCar.color, model: selectedCar.model },
-          true
-        );
+      const url = `${api.CAR}/${selectedCar.id}`;
       fetchRequest(GET, url);
     }
   }, [selectedCar]);
 
-  const isAvailable = response && response.length > 0;
+  const isAvailable = response && response[0].state === 'available';
 
   return (
     <Modal

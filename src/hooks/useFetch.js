@@ -14,12 +14,12 @@ const useFetch = () => {
       await fetch(url, { method, body: JSON.stringify(params) })
         .then((res) => res.json())
         .then((res) => {
-          setLoading(false);
           setResponse(JSON.parse(res.body));
+          setLoading(false);
         })
         .catch((err) => {
-          setLoading(false);
           setError(err.toString());
+          setLoading(false);
         });
     },
   };
